@@ -8,8 +8,14 @@
 
 #include "commands/ExampleCommand.h"
 #include "subsystems/ExampleSubsystem.h"
-#include "SwerveModule.h"
 
+#include "commands/command_SwerveDriveTeleop.h"
+#include "subsystems/subsystem_SwerveDrive.h"
+
+#include "frc/XboxController.h"
+#include "frc2/command/button/JoystickButton.h"
+#include <frc/Joystick.h>
+#include "Constants.h"
 /**
  * This class is where the bulk of the robot should be declared.  Since
  * Command-based is a "declarative" paradigm, very little robot logic should
@@ -27,6 +33,10 @@ class RobotContainer {
   // The robot's subsystems and commands are defined here...
   ExampleSubsystem m_subsystem;
   ExampleCommand m_autonomousCommand;
+
+  subsystem_SwerveDrive m_Drive;
+
+  frc::XboxController XboxDrive{ControllerConstants::XboxPortDriveID};
 
   void ConfigureButtonBindings();
 };

@@ -14,7 +14,7 @@ subsystem_SwerveDrive::subsystem_SwerveDrive():m_Gyro{SwerveConstants::CANCoderI
                                                m_BackRightModule{BackRightModule::Constants}
 {
     m_Gyro.ConfigFactoryDefault();
-    m_Gyro.SetYaw(0);
+    ZeroGyro();
 
 
 }
@@ -36,6 +36,10 @@ void subsystem_SwerveDrive::SwerveDrive(units::meters_per_second_t xSpeed,
     m_BackLeftModule.SetDesiredState(BackLeft, IsOpenLoop);
     m_BackRightModule.SetDesiredState(BackRight, IsOpenLoop);
 
+}
+
+void subsystem_SwerveDrive::ZeroGyro(){
+    m_Gyro.SetYaw(0);
 }
 
 

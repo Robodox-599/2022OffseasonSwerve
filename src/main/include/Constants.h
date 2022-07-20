@@ -25,6 +25,28 @@
  */
 namespace ControllerConstants{
     constexpr double Deadband = 0.2;
+    
+    constexpr int XboxPortDriveID = 0;
+
+    constexpr int xboxLXAxis = 0;
+    constexpr int xboxLYAxis = 1;
+    constexpr int xboxRXAxis = 4;
+    constexpr int xboxRYAxis = 5;
+
+    constexpr int xboxLTAxis = 2;
+    constexpr int xboxRTAxis = 3;
+
+    constexpr int xboxA = 1;
+    constexpr int xboxB = 2;
+    constexpr int xboxX = 3;
+    constexpr int xboxY = 4;
+    constexpr int xboxLB = 5;
+    constexpr int xboxRB = 6;
+    constexpr int xboxView = 7;
+    constexpr int xboxMenu = 8;
+    constexpr int xboxLeftJoyPress = 9;
+    constexpr int xboxRightJoyPress = 10;
+    constexpr int xboxRightDPad = 11;
 }
 
 namespace SwerveConstants{
@@ -53,16 +75,16 @@ namespace SwerveConstants{
 
 
     /*setting up correct units for the simepleMotorFeedforward KS gain*/
-    constexpr units::volt_t DriveKS{0.667};
+    constexpr units::volt_t DriveKS{0.0};
 
-    constexpr units::volt_t VoltageKV{2.44};
+    constexpr units::volt_t VoltageKV{0.0};
     constexpr units::foot_t FeetKV{1.0};
     constexpr units::second_t TimeKV{1.0};
     /*Setting up correct units for the simpleMotorFeedforward KV gain
     Change VoltageKV when wanting to change the KV gain*/
     constexpr auto DriveKV = VoltageKV * TimeKV / FeetKV;
 
-    constexpr units::volt_t VoltageKA{0.27};
+    constexpr units::volt_t VoltageKA{0.0};
     constexpr units::foot_t FeetKA{1.0};
     constexpr units::second_t TimeKA{1.0};
     /*Setting up correct units for the simpleMotorFeedforward KA gain
@@ -109,7 +131,8 @@ namespace SwerveConstants{
     constexpr units::meters_per_second_t MaxSpeed{4.5};
     constexpr units::degrees_per_second_t MaxAngularVelocity{11.5};
 
-    
+    constexpr bool IsFieldRelative = true;
+    constexpr bool IsOpenLoop = false; 
 
 
     

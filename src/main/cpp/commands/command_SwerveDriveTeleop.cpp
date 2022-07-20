@@ -7,10 +7,14 @@
 command_SwerveDriveTeleop::command_SwerveDriveTeleop(subsystem_SwerveDrive* SwerveDrive,
                                                       std::function<double()> xSpeed,
                                                       std::function<double()> ySpeed,
-                                                      std::function<double()> zRotation): m_SwerveDrive{SwerveDrive},
+                                                      std::function<double()> zRotation,
+                                                      std::function<bool()> FieldRelative,
+                                                      std::function<bool()> OpenLoop): m_SwerveDrive{SwerveDrive},
                                                                                           m_xSpeed{xSpeed},
                                                                                           m_ySpeed{ySpeed},
-                                                                                          m_zRotation{zRotation}
+                                                                                          m_zRotation{zRotation},
+                                                                                          m_FieldRelative{FieldRelative},
+                                                                                          m_OpenLoop{OpenLoop}
 {
   // Use addRequirements() here to declare subsystem dependencies.
   AddRequirements({m_SwerveDrive});
@@ -26,8 +30,6 @@ void command_SwerveDriveTeleop::Execute() {
                                 -frc::ApplyDeadband(m_zRotation(), 0.08) * SwerveConstants::MaxAngularVelocity,
                                 true,
                                 false);
-
-  
 }
 
 // Called once the command ends or is interrupted.

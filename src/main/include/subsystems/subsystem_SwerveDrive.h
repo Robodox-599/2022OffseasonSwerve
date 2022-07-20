@@ -29,7 +29,7 @@ class subsystem_SwerveDrive : public frc2::SubsystemBase {
                    units::radians_per_second_t zRot,
                    bool FieldRelative, 
                    bool IsOpenLoop);
-
+  void ZeroGyro();
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.

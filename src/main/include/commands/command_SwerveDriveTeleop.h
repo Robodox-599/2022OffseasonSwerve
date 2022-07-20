@@ -22,7 +22,9 @@ class command_SwerveDriveTeleop
   command_SwerveDriveTeleop(subsystem_SwerveDrive* SwerveDrive,
                             std::function<double()> xSpeed,
                             std::function<double()> ySpeed,
-                            std::function<double()> zRotation);
+                            std::function<double()> zRotation,
+                            std::function<bool()> FieldRelative,
+                            std::function<bool()> OpenLoop);
 
   void Initialize() override;
 
@@ -37,5 +39,7 @@ class command_SwerveDriveTeleop
   std::function<double()> m_xSpeed;
   std::function<double()> m_ySpeed;
   std::function<double()> m_zRotation;
+  std::function<double()> m_FieldRelative;
+  std::function<double()> m_OpenLoop;
 
 };
