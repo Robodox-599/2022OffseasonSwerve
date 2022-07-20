@@ -1,15 +1,20 @@
 #include "SwerveModule.h"
-
-SwerveModule::SwerveModule(int moduleNumber, SwerveModuleConstants ModuleConstants):m_ModuleNum{moduleNumber},
-                                                                                    m_AngleOffset{units::degree_t( ModuleConstants.getAngleOffset() )},
-                                                                                    m_AngleMotor{ModuleConstants.getAngleMotorID()},
-                                                                                    m_DriveMotor{ModuleConstants.getDriveMotorID()},
-                                                                                    m_AngleEncoder{ModuleConstants.getCanCoderID()},
+    constexpr int DriveMotorID = 0;
+    constexpr int AngleMotorID = 0;
+    constexpr int CanCoderID = 0;
+    constexpr double AngleOffset = 0.0;
+SwerveModule::SwerveModule(const double Module[] ):
+                                                                                    m_DriveMotor{ (int)Module[0]},
+                                                                                    m_AngleMotor{ (int)Module[1] },
+                                                                                    m_AngleEncoder{ (int)Module[2] },
+                                                                                    m_AngleOffset{ Module[3] },
                                                                                     m_Feedforward{SwerveConstants::DriveKS, SwerveConstants::DriveKV, SwerveConstants::DriveKA}
 {
+    //Config Angle Encoder
     m_AngleEncoder.ConfigFactoryDefault();
     m_AngleEncoder.ConfigAllSettings(m_Settings.SwerveCanCoderConfig);
 
+    //Config Angle Motor
     m_AngleMotor.ConfigFactoryDefault();
     m_AngleMotor.ConfigAllSettings(m_Settings.SwerveAngleFXConfig);
     m_AngleMotor.SetInverted(SwerveConstants::AngleMotorInvert);
@@ -17,7 +22,7 @@ SwerveModule::SwerveModule(int moduleNumber, SwerveModuleConstants ModuleConstan
     double absolutePosition = DegreesToFalcon(GetCANCoder().Degrees() - m_AngleOffset, SwerveConstants::AngleGearRatio);
     m_AngleMotor.SetSelectedSensorPosition(absolutePosition);
 
-
+    //Config Drive Motor
     m_DriveMotor.ConfigFactoryDefault();
     m_DriveMotor.ConfigAllSettings(m_Settings.SwerveDriveFXConfig);
     m_DriveMotor.SetInverted(SwerveConstants::DriveMotorInvert);
@@ -46,7 +51,6 @@ void SwerveModule::SetDesiredState(frc::SwerveModuleState& DesiredState, bool Is
 
 /* This custom optimize method is created because Wpilib assumes the controller is continuous, which the CTRE Talons are not. */
 frc::SwerveModuleState SwerveModule::Optimize(frc::SwerveModuleState DesiredState, frc::Rotation2d CurrentAngle){
-    //units::degree_t ModReferenceAngle = frc::AngleModulus( CurrentAngle.Degrees() );
     units::degree_t ModReferenceAngle{ fmod( CurrentAngle.Degrees().value(), 360.0 )};
     units::meters_per_second_t TargetSpeed = DesiredState.speed;
     units::degree_t Delta = ModReferenceAngle - CurrentAngle.Degrees();

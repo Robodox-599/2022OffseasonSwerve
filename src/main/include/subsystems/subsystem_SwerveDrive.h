@@ -7,10 +7,30 @@
 #include <frc2/command/SubsystemBase.h>
 #include "SwerveModule.h"
 #include "Constants.h"
-#include <iostream>
+#include <vector>
+#include <units/velocity.h>
+#include <frc/kinematics/ChassisSpeeds.h>
+#include <frc/kinematics/SwerveDriveKinematics.h>
+#include <frc/kinematics/SwerveDriveOdometry.h>
+#include <frc/kinematics/SwerveModuleState.h>
+#include <frc/geometry/Pose2d.h>
+#include <frc/geometry/Rotation2d.h>
+#include <frc/geometry/Translation2d.h>
+
+#include <ctre/phoenix/sensors/WPI_Pigeon2.h>
+
+
+
 class subsystem_SwerveDrive : public frc2::SubsystemBase {
  public:
   subsystem_SwerveDrive();
+  void SwerveDrive(units::meters_per_second_t xSpeed,
+                   units::meters_per_second_t ySpeed,
+                   units::radians_per_second_t zRot,
+                   bool FieldRelative, 
+                   bool IsOpenLoop);
+
+
   /**
    * Will be called periodically whenever the CommandScheduler runs.
    */
@@ -19,4 +39,20 @@ class subsystem_SwerveDrive : public frc2::SubsystemBase {
  private:
   // Components (e.g. motor controllers and sensors) should generally be
   // declared private and exposed only through public methods.
+  
+  ctre::phoenix::sensors::WPI_Pigeon2 m_Gyro;
+
+  SwerveModule m_FrontLeftModule;
+  SwerveModule m_FrontRightModule;
+  SwerveModule m_BackLeftModule;
+  SwerveModule m_BackRightModule;
+
+  frc::SwerveDriveOdometry<4> m_Odometry{SwerveConstants::m_kinematics, m_Gyro.GetRotation2d()};
+
+  
+
+  
+  //std::vector<SwerveModule> m_Mods;
+                           
+  
 };

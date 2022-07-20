@@ -3,11 +3,13 @@
 // the WPILib BSD license file in the root directory of this project.
 
 #pragma once
-#include "SwerveModuleConstants.h"
 #include <units/length.h>
 #include <units/voltage.h>
 #include <units/velocity.h>
 #include <units/time.h>
+
+#include <frc/kinematics/SwerveDriveKinematics.h>
+#include <frc/trajectory/TrapezoidProfile.h>
 
 
 
@@ -21,9 +23,12 @@
  * command-specific namespaces within this header, which can then be used where
  * they are needed.
  */
-
+namespace ControllerConstants{
+    constexpr double Deadband = 0.2;
+}
 
 namespace SwerveConstants{
+    constexpr int CANCoderID = 0; 
 
     /*Drivetrain constants*/
     constexpr double OpenLoopRamp = 0.25;
@@ -33,6 +38,19 @@ namespace SwerveConstants{
     constexpr double AngleGearRatio = 150.0 / 7.0;
 
     constexpr units::meter_t WheelCircumference{ 0.0_in };
+
+    const frc::Translation2d m_FrontLeft{0.0_in, 0.0_in};
+    const frc::Translation2d m_FrontRight{0.0_in, 0.0_in};
+    const frc::Translation2d m_BackLeft{0.0_in, 0.0_in};
+    const frc::Translation2d m_BackRight{0.0_in, 0.0_in};
+
+    const frc::SwerveDriveKinematics<4> m_kinematics{m_FrontLeft,
+                                               m_FrontRight,
+                                               m_BackLeft,
+                                               m_BackLeft,};
+
+
+
 
     /*setting up correct units for the simepleMotorFeedforward KS gain*/
     constexpr units::volt_t DriveKS{0.667};
@@ -50,7 +68,7 @@ namespace SwerveConstants{
     /*Setting up correct units for the simpleMotorFeedforward KA gain
     Change VoltageKA when wanting to change the KA gain*/
     constexpr auto DriveKA = VoltageKA * (TimeKA * TimeKA) / FeetKA; 
-
+    constexpr units::volt_t kNominal {12.0};
     /*Angle Encoder Invert*/
     constexpr bool CanCoderInvert = false;
 
@@ -91,53 +109,41 @@ namespace SwerveConstants{
     constexpr units::meters_per_second_t MaxSpeed{4.5};
     constexpr units::degrees_per_second_t MaxAngularVelocity{11.5};
 
-
-    /*Voltage Config*/
-    constexpr units::volt_t kNominal {12.0};
     
+
+
+    
+
 
     
      
 }
 namespace FrontLeftModule{
-    constexpr int driveMotorID = 0;
-    constexpr int angleMotorID = 0;
-    constexpr int canCoderID = 0;
-    constexpr double angleOffset = 0.0;
-    const SwerveModuleConstants constants =  SwerveModuleConstants(driveMotorID, 
-                                                                          angleMotorID,
-                                                                          canCoderID,
-                                                                          angleOffset);
+    constexpr int DriveMotorID = 0;
+    constexpr int AngleMotorID = 0;
+    constexpr int CanCoderID = 0;
+    constexpr double AngleOffset = 0.0;
+    const double Constants[4] = { DriveMotorID, AngleMotorID, CanCoderID, AngleOffset };
 }
 
 namespace FrontRightModule{
-    constexpr int driveMotorID = 0;
-    constexpr int angleMotorID = 0;
-    constexpr int canCoderID = 0;
-    constexpr double angleOffset = 0.0;
-    const SwerveModuleConstants constants = SwerveModuleConstants(driveMotorID,
-                                                                  angleMotorID,
-                                                                  canCoderID,
-                                                                  angleOffset);
+    constexpr int DriveMotorID = 0;
+    constexpr int AngleMotorID = 0;
+    constexpr int CanCoderID = 0;
+    constexpr double AngleOffset = 0.0;
+    const double Constants[4] = { DriveMotorID, AngleMotorID, CanCoderID, AngleOffset};
 }
 namespace BackLeftModule{
-    constexpr int driveMotorID = 0;
-    constexpr int angleMotorID = 0;
-    constexpr int canCoderID = 0;
-    constexpr auto angleOffset = 0.0;
-    const SwerveModuleConstants constants = SwerveModuleConstants(driveMotorID,
-                                                                  angleMotorID,
-                                                                  canCoderID,
-                                                                  angleOffset);
+    constexpr int DriveMotorID = 0;
+    constexpr int AngleMotorID = 0;
+    constexpr int CanCoderID = 0;
+    constexpr auto AngleOffset = 0.0;
+    const double Constants[4] = { DriveMotorID, AngleMotorID, CanCoderID, AngleOffset};
 }
 namespace BackRightModule{
-    constexpr int driveMotorID = 0;
-    constexpr int angleMotorID = 0;
-    constexpr int canCoderID = 0;
-    constexpr double angleOffset = 0.0;
-    const SwerveModuleConstants constants = SwerveModuleConstants(driveMotorID,
-                                                                  angleMotorID,
-                                                                  canCoderID,
-                                                                  angleOffset);
+    constexpr int DriveMotorID = 0;
+    constexpr int AngleMotorID = 0;
+    constexpr int CanCoderID = 0;
+    constexpr double AngleOffset = 0.0;
+    const double Constants[4] = { DriveMotorID, AngleMotorID, CanCoderID, AngleOffset};
 }
-
