@@ -1,8 +1,5 @@
 #include "SwerveModule.h"
-    constexpr int DriveMotorID = 0;
-    constexpr int AngleMotorID = 0;
-    constexpr int CanCoderID = 0;
-    constexpr double AngleOffset = 0.0;
+
 SwerveModule::SwerveModule(const double Module[] ):
                                                                                     m_DriveMotor{ (int)Module[0]},
                                                                                     m_AngleMotor{ (int)Module[1] },
