@@ -35,6 +35,11 @@ void command_SwerveDriveAuto::Initialize() {
                                                             ThetaController,
                                                             [this](auto moduleStates) { m_SwerveDrive->SetModuleStates(moduleStates); },
                                                             {m_SwerveDrive});
+  m_SwerveDrive->SwerveDrive(0_mps, 0_mps, 0_rad_per_s, false, false);
+                                                            
+                                                            
+                                                            //.AndThen([]{ return m_SwerveDrive->SwerveDrive(0.0, 0.0, 0.0, false, false)});
+                                                            
                                                             
   
 
@@ -42,12 +47,12 @@ void command_SwerveDriveAuto::Initialize() {
 }
 
 // Called repeatedly when this Command is scheduled to run
-void command_SwerveDriveAuto::Execute() {
-
-}
+void command_SwerveDriveAuto::Execute() {}
 
 // Called once the command ends or is interrupted.
-void command_SwerveDriveAuto::End(bool interrupted) {}
+void command_SwerveDriveAuto::End(bool interrupted) {
+  m_SwerveDrive -> SwerveDrive(0_mps, 0_mps, 0_rad_per_s, false, false);
+}
 
 
 

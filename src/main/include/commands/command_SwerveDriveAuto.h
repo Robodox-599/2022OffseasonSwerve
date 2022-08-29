@@ -25,6 +25,8 @@
 #include <wpi/fs.h>
 #include <cmath>
 #include <units/angle.h>
+#include <units/angular_velocity.h>
+#include <units/velocity.h>
 
 
 #include "subsystems/subsystem_SwerveDrive.h"
