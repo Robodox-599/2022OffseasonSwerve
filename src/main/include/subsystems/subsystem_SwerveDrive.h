@@ -29,7 +29,13 @@ class subsystem_SwerveDrive : public frc2::SubsystemBase {
                    units::radians_per_second_t zRot,
                    bool FieldRelative, 
                    bool IsOpenLoop);
+  void SetModuleStates(wpi::array<frc::SwerveModuleState, 4> desiredStates);
+
+  
   void ZeroGyro();
+  void ResetOdometry(frc::Pose2d Pose);
+  frc::Pose2d GetPose();
+
 
   /**
    * Will be called periodically whenever the CommandScheduler runs.
@@ -47,7 +53,7 @@ class subsystem_SwerveDrive : public frc2::SubsystemBase {
   SwerveModule m_BackLeftModule;
   SwerveModule m_BackRightModule;
 
-  frc::SwerveDriveOdometry<4> m_Odometry{SwerveConstants::m_kinematics, m_Gyro.GetRotation2d()};
+  frc::SwerveDriveOdometry<4> m_Odometry;
 
   
 

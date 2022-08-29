@@ -7,6 +7,8 @@
 #include <units/voltage.h>
 #include <units/velocity.h>
 #include <units/time.h>
+#include <units/acceleration.h>
+#include <units/angular_acceleration.h>
 
 #include <frc/kinematics/SwerveDriveKinematics.h>
 #include <frc/trajectory/TrapezoidProfile.h>
@@ -26,7 +28,8 @@
 namespace ControllerConstants{
     constexpr double Deadband = 0.2;
     
-    constexpr int XboxPortDriveID = 0;
+    constexpr int XboxDriveID = 0;
+    constexpr int XboxYaperatorID = 0;
 
     constexpr int xboxLXAxis = 0;
     constexpr int xboxLYAxis = 1;
@@ -54,17 +57,17 @@ namespace SwerveConstants{
 
     /*Drivetrain constants*/
     constexpr double OpenLoopRamp = 0.25;
-    constexpr double closedLoopRamp = 0.0;
+    constexpr double closedLoopRamp = 0.2;
 
     constexpr double DriveGearRatio = 6.75;
     constexpr double AngleGearRatio = 150.0 / 7.0;
 
-    constexpr units::meter_t WheelCircumference{ 0.0_in };
+    constexpr units::meter_t WheelCircumference{ 4.0_in };
 
-    const frc::Translation2d m_FrontLeft{0.0_in, 0.0_in};
-    const frc::Translation2d m_FrontRight{0.0_in, 0.0_in};
-    const frc::Translation2d m_BackLeft{0.0_in, 0.0_in};
-    const frc::Translation2d m_BackRight{0.0_in, 0.0_in};
+    const frc::Translation2d m_FrontLeft{-14.0_in, 14.0_in};
+    const frc::Translation2d m_FrontRight{14.0_in, -14.0_in};
+    const frc::Translation2d m_BackLeft{-14.0_in, -14.0_in};
+    const frc::Translation2d m_BackRight{14.0_in, -14.0_in};
 
     const frc::SwerveDriveKinematics<4> m_kinematics{m_FrontLeft,
                                                m_FrontRight,
@@ -132,15 +135,10 @@ namespace SwerveConstants{
     constexpr units::degrees_per_second_t MaxAngularVelocity{11.5};
 
     constexpr bool IsFieldRelative = true;
-    constexpr bool IsOpenLoop = false; 
-
-
-    
-
-
-    
-     
+    constexpr bool IsOpenLoop = false;  
 }
+
+
 namespace FrontLeftModule{
     constexpr int DriveMotorID = 0;
     constexpr int AngleMotorID = 0;
@@ -169,4 +167,27 @@ namespace BackRightModule{
     constexpr int CanCoderID = 0;
     constexpr double AngleOffset = 0.0;
     const double Constants[4] = { DriveMotorID, AngleMotorID, CanCoderID, AngleOffset};
+}
+
+namespace AutoConstants{
+    constexpr units::radian_t PI {M_PI};
+    constexpr units::meters_per_second_t MaxSpeed{ 0 };
+    constexpr units::meters_per_second_squared_t MaxAccel{ 0 };
+    constexpr units::radians_per_second_t MaxAngularSpeed{ 0 };
+    constexpr units::radians_per_second_squared_t MaxAngularAccel{ 0 };
+
+
+        /*Auto Swerve Drive Motor PID gains*/
+    constexpr double AutoDriveKP = 0.0;
+    constexpr double AutoDriveKI = 0.0;
+    constexpr double AutoDriveKD = 0.0;
+    constexpr double AutoDriveKF = 0.0;
+
+        /* Auto Swerve Angle Motor PID gains*/
+    constexpr double AutoAngleKP = 0.0;
+    constexpr double AutoAngleKI = 0.0;
+    constexpr double AutoAngleKD = 0.0;
+    constexpr double AutoAngleKF = 0.0;
+
+
 }

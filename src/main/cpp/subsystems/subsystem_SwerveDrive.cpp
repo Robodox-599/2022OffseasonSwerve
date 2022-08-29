@@ -11,7 +11,8 @@ subsystem_SwerveDrive::subsystem_SwerveDrive():m_Gyro{SwerveConstants::CANCoderI
                                                m_FrontLeftModule{FrontLeftModule::Constants},
                                                m_FrontRightModule{FrontRightModule::Constants},
                                                m_BackLeftModule{BackLeftModule::Constants},
-                                               m_BackRightModule{BackRightModule::Constants}
+                                               m_BackRightModule{BackRightModule::Constants},
+                                               m_Odometry{SwerveConstants::m_kinematics, m_Gyro.GetRotation2d()}
 {
     m_Gyro.ConfigFactoryDefault();
     ZeroGyro();
@@ -37,6 +38,26 @@ void subsystem_SwerveDrive::SwerveDrive(units::meters_per_second_t xSpeed,
     m_BackRightModule.SetDesiredState(BackRight, IsOpenLoop);
 
 }
+
+void subsystem_SwerveDrive::SetModuleStates(wpi::array<frc::SwerveModuleState, 4> desiredStates){
+  SwerveConstants::m_kinematics.DesaturateWheelSpeeds(&desiredStates,
+                                         AutoConstants::MaxSpeed);
+  m_FrontLeftModule.SetDesiredState(desiredStates[0], false);
+  m_FrontRightModule.SetDesiredState(desiredStates[1], false);
+  m_BackLeftModule.SetDesiredState(desiredStates[2], false);
+  m_BackRightModule.SetDesiredState(desiredStates[3], false);
+}
+
+
+void subsystem_SwerveDrive::ResetOdometry(frc::Pose2d Pose){
+    m_Odometry.ResetPosition(Pose, m_Gyro.GetRotation2d());
+}
+
+frc::Pose2d subsystem_SwerveDrive::GetPose(){
+    return m_Odometry.GetPose();
+}
+
+
 
 void subsystem_SwerveDrive::ZeroGyro(){
     m_Gyro.SetYaw(0);

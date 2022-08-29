@@ -28,8 +28,8 @@ void command_SwerveDriveTeleop::Execute() {
   m_SwerveDrive -> SwerveDrive( -frc::ApplyDeadband(m_xSpeed(), 0.08)* SwerveConstants::MaxSpeed,
                                 -frc::ApplyDeadband(m_ySpeed(), 0.08) * SwerveConstants::MaxSpeed,
                                 -frc::ApplyDeadband(m_zRotation(), 0.08) * SwerveConstants::MaxAngularVelocity,
-                                true,
-                                false);
+                                m_FieldRelative(),
+                                m_OpenLoop());
 }
 
 // Called once the command ends or is interrupted.

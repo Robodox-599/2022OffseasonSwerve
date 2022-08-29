@@ -36,7 +36,8 @@ class RobotContainer {
 
   subsystem_SwerveDrive m_Drive;
 
-  frc::XboxController XboxDrive{ControllerConstants::XboxPortDriveID};
+  frc::XboxController XboxDrive{ControllerConstants::XboxDriveID};
+  frc::XboxController XboxYaperator{ControllerConstants::XboxYaperatorID};
 
   void ConfigureButtonBindings();
 };
